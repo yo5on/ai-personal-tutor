@@ -39,9 +39,13 @@
 
 <div align="center"><samp><b>Screenshots</b></samp></div>
 
-| <samp>Dashboard</samp> | <samp>Tutor</samp> | <samp>Quiz</samp> | <samp>Progress</samp> |
-|---|---|---|---|
-| ![Dashboard](docs/screenshots/dashboard.png) | ![Tutor](docs/screenshots/tutor.png) | ![Quiz](docs/screenshots/quiz.png) | ![Progress](docs/screenshots/progress.png) |
+| <samp>Dashboard</samp> | <samp>Tutor</samp> | <samp>Materials</samp> |
+|---|---|---|
+| ![Dashboard](images/dashboard.png) | ![Tutor](images/tutor.png) | ![Materials](images/materials.png) |
+
+| <samp>Quiz</samp> | <samp>Progress</samp> |
+|---|---|
+| ![Quiz](images/quiz.png) | ![Progress](images/progress.png) |
 
 ---
 
@@ -115,6 +119,8 @@ Start: npm start
 
 <samp>Set <code>GEMINI_API_KEY</code> in the deployment environment and configure <code>DATABASE_DIR</code> to point to persistent storage.</samp>
 
+<samp><b>Live Demo:</b> <code>https://ai-personal-tutor-cjjn.onrender.com</code></samp>
+
 <samp><b>Vercel:</b> suitable for a demo, but the current SQLite database uses temporary storage there, so personal uploads and progress may reset.</samp>
 
 ---
@@ -130,15 +136,17 @@ app/
     ├── chat/                Tutor responses
     ├── materials/           PDF/TXT upload and extraction
     └── quiz/                Quiz generation and answer checking
-components/                  UI components
+components/                  Reusable UI components
 lib/
 ├── gemini.ts                Gemini client and error mapping
 ├── prompts.ts               Tutor and quiz prompts
 ├── db.ts, data.ts           SQLite schema and queries
 ├── progress.ts              Progress statistics
 └── demo.ts                  Demo seeding and fallback replies
-data/                        Demo notes, question bank, sample replies
+data/                        Demo materials, questions, and replies
+images/                      README screenshots
 types/                       Shared TypeScript types
+public/                      Static assets
 ```
 
 ---
