@@ -1,127 +1,160 @@
-# AI Personal Tutor
+<div align="center">
 
-A study platform for students: a patient tutor that explains concepts step by step, teaches from your own notes, quizzes you, and tracks where you need more practice. Tutor answers and quizzes come from **Google Gemini**, called only from the server.
+<img src="https://raw.githubusercontent.com/yo5on/yo5on/main/hd-projects.svg" width="620" alt="projects"/>
 
-## Features
+<samp><b>AI PERSONAL TUTOR</b></samp>
 
-- **Tutor** — a study workspace, not a generic chatbot. The tutor starts from the basics when needed, uses examples and analogies, checks understanding with short questions, spots misconceptions, and gives hints before answers. One-click actions: *Explain simply*, *Give an example*, *Give me a question*, *Quiz me*, *Summarize*. Conversations are saved per study session.
-- **Study materials** — upload PDF or TXT files (up to 10 MB). Text is extracted once on upload. When you study a material, the tutor and quizzes use it as their source.
-- **Quizzes** — multiple-choice quizzes generated from a topic or a material, shown one question at a time. Answers are checked on the server, each comes with an explanation, and the results screen shows your score, what you missed, and the concepts to revise.
-- **Progress** — overall accuracy, questions attempted, topics studied, study time, recent quiz scores, accuracy per topic, weak topics, and a list of missed questions to review.
-- **Demo Mode** — a ready-made *Data Structures* workspace (Arrays, Linked Lists, Recursion, Binary Trees) with study notes, past study sessions, quiz history and progress. It needs no setup, and it's kept separate from your own data.
+<samp>next.js · typescript · gemini · sqlite</samp>
 
-## Tech stack
+</div>
 
-- [Next.js 16](https://nextjs.org) (App Router, route handlers, server actions) with TypeScript
-- Tailwind CSS v4
-- Google Gemini via the official [`@google/genai`](https://www.npmjs.com/package/@google/genai) SDK (server-side only)
-- SQLite through Node's built-in `node:sqlite` module (no native dependencies, no database server)
-- `unpdf` for PDF text extraction, `react-markdown` for rendering tutor replies, `lucide-react` icons
+---
 
-## Screenshots
+<div align="center"><samp>A personalised study platform that teaches concepts step by step, works from your own study materials, generates quizzes, and tracks where you need more practice.</samp></div>
 
-_Add screenshots here:_
+---
 
-| Dashboard | Tutor | Quiz | Progress |
-| --- | --- | --- | --- |
+<div align="center"><samp><b>Features</b></samp></div>
+
+- <samp><b>Tutor</b> — a study workspace that explains concepts from the basics, uses examples and analogies, checks understanding, spots misconceptions, and gives hints before answers.</samp>
+- <samp><b>Study materials</b> — upload PDF or TXT files up to 10 MB and use their extracted text as the source for tutoring and quizzes.</samp>
+- <samp><b>Quizzes</b> — generate multiple-choice quizzes from a topic or study material, with server-side answer checking and explanations.</samp>
+- <samp><b>Progress</b> — track accuracy, questions attempted, topics studied, study time, quiz scores, weak topics, and missed questions.</samp>
+- <samp><b>Demo Mode</b> — a ready-made Data Structures workspace with sample notes, study sessions, quiz history, and progress.</samp>
+
+---
+
+<div align="center"><samp><b>Tech Stack</b></samp></div>
+
+- <samp>Next.js 16 with App Router, route handlers, and server actions</samp>
+- <samp>TypeScript</samp>
+- <samp>Tailwind CSS v4</samp>
+- <samp>Google Gemini through the official <code>@google/genai</code> SDK</samp>
+- <samp>SQLite through Node's built-in <code>node:sqlite</code> module</samp>
+- <samp><code>unpdf</code> for PDF text extraction</samp>
+- <samp><code>react-markdown</code> for tutor replies</samp>
+- <samp><code>lucide-react</code> for icons</samp>
+
+---
+
+<div align="center"><samp><b>Screenshots</b></samp></div>
+
+| <samp>Dashboard</samp> | <samp>Tutor</samp> | <samp>Quiz</samp> | <samp>Progress</samp> |
+|---|---|---|---|
 | ![Dashboard](docs/screenshots/dashboard.png) | ![Tutor](docs/screenshots/tutor.png) | ![Quiz](docs/screenshots/quiz.png) | ![Progress](docs/screenshots/progress.png) |
 
-## Local setup
+---
 
-Requirements: **Node.js 22.13 or newer** (Node 24 recommended). `node:sqlite` is built into these versions.
+<div align="center"><samp><b>Local Setup</b></samp></div>
+
+<samp><b>Requirements</b></samp>
+
+- <samp>Node.js 22.13 or newer</samp>
+- <samp>npm</samp>
+
+<samp><b>Install</b></samp>
 
 ```bash
-cd ai-personal-tutor
 npm install
-cp .env.example .env.local   # then add your Gemini API key
+cp .env.example .env.local
 ```
 
-## Environment variables
+<samp>Add your Gemini API key to <code>.env.local</code>. Never commit the key.</samp>
 
-| Variable | Required | Description |
-| --- | --- | --- |
-| `GEMINI_API_KEY` | Yes, for live tutoring | Your Google Gemini API key. Create one at [Google AI Studio](https://aistudio.google.com/apikey). |
-| `GEMINI_MODEL` | No | Gemini model ID. Defaults to `gemini-3.8-flash`. Older models such as `gemini-2.5-flash` are no longer available to new API keys. |
-| `GEMINI_FALLBACK_MODELS` | No | Ordered, comma-separated backup models tried when the main model is busy (503), over quota (429), unavailable or slow. Defaults to `gemini-3.7-flash,gemini-3.5-flash-lite`; set it to an empty value to use only `GEMINI_MODEL`. |
-| `DATABASE_DIR` | No | Folder for the SQLite file. Defaults to `./data/db` (or `/tmp` on Vercel). |
+---
 
-The key is read only in server code (`lib/gemini.ts`, which imports `server-only`). The browser talks to the app's own API routes (`/api/chat`, `/api/quiz`), never to Gemini directly. `.env.local` is git-ignored — never commit your key.
+<div align="center"><samp><b>Environment Variables</b></samp></div>
 
-## Running the project
+| <samp>Variable</samp> | <samp>Required</samp> | <samp>Description</samp> |
+|---|---|---|
+| <samp><code>GEMINI_API_KEY</code></samp> | <samp>Yes for live tutoring</samp> | <samp>Google Gemini API key</samp> |
+| <samp><code>GEMINI_MODEL</code></samp> | <samp>No</samp> | <samp>Primary Gemini model</samp> |
+| <samp><code>GEMINI_FALLBACK_MODELS</code></samp> | <samp>No</samp> | <samp>Comma-separated fallback models</samp> |
+| <samp><code>DATABASE_DIR</code></samp> | <samp>No</samp> | <samp>Folder containing the SQLite database</samp> |
+
+<samp>The Gemini key is read only in server code. The browser communicates with the application's own API routes and never calls Gemini directly.</samp>
+
+---
+
+<div align="center"><samp><b>Running the Project</b></samp></div>
 
 ```bash
-npm run dev      # development server at http://localhost:3000
-npm run build    # production build
-npm start        # run the production build
+npm run dev
+npm run build
+npm start
 npm run lint
 ```
 
-## Demo Mode
+<samp>The development server normally runs at <code>http://localhost:3000</code>.</samp>
 
-1. Open the site and click **Try Demo**.
-2. You land on the dashboard of a sample student, Yoson, studying Data Structures.
-3. Suggested presentation flow:
-   1. **Dashboard** → click **Continue** (Recursion) to open the tutor.
-   2. Ask a question, or use *Explain simply* / *Give an example* / *Give me a question*.
-   3. Open **Materials** and click **View** on a study guide.
-   4. Open **Quiz**, choose a material, and click **Generate quiz**.
-   5. Answer a question to see the feedback and explanation.
-   6. Open **Progress** to see accuracy, scores and weak topics.
+---
 
-Every time you click **Try Demo** (or **Reset demo** in the banner), the demo workspace is rebuilt from scratch, so each presentation starts from the same state. **Exit demo** switches to your personal workspace. The two are stored separately, and nothing done in the demo touches personal data.
+<div align="center"><samp><b>Demo Mode</b></samp></div>
 
-With `GEMINI_API_KEY` set, the demo tutor and quizzes use live Gemini responses. If Gemini is overloaded, out of quota or slow, the demo never waits through retries:
+1. <samp>Open the application and select <b>Try Demo</b>.</samp>
+2. <samp>Use the sample Data Structures workspace to explore the tutor.</samp>
+3. <samp>Open Materials and view a study guide.</samp>
+4. <samp>Open Quiz, choose a material, and generate a quiz.</samp>
+5. <samp>Answer a question to see feedback and an explanation.</samp>
+6. <samp>Open Progress to review accuracy, scores, and weak topics.</samp>
 
-- Each demo request works down the model chain (`gemini-3.8-flash` → `gemini-3.7-flash` → `gemini-3.5-flash-lite`) without retrying any model. If no reply has started within 8 seconds in total (15 seconds for a quiz), the demo uses a prepared answer or the built-in question bank instead.
-- A model that just failed is skipped for a minute (ten minutes after a quota error), so later demo requests go straight to a working model or to prepared content.
-- Anything that didn't come from Gemini is labelled **"Demo fallback — prepared response"** (or **"prepared questions"** on a quiz), so it's never passed off as a live answer.
+<samp>The demo workspace can be reset and is stored separately from personal data. With <code>GEMINI_API_KEY</code> configured, the demo uses live Gemini responses with prepared fallback content when live models are unavailable. Fallback responses are explicitly labelled.</samp>
 
-Without a key, the demo uses prepared content throughout, and the banner says so.
+---
 
-Personal mode never uses prepared content. It works down the same model chain (up to 40 seconds for a reply, 60 for a quiz), and if every live model fails it says so clearly.
+<div align="center"><samp><b>Deployment</b></samp></div>
 
-## Deployment
+<samp>The application requires a Node.js server because it uses API routes and SQLite.</samp>
 
-The app needs a Node.js server (API routes and SQLite), so deploy it somewhere that runs `next start`.
+<samp><b>Persistent deployment:</b> Render, Railway, Fly.io, or a VPS can run the production server with a persistent disk for the database and uploaded data.</samp>
 
-**Render / Railway / Fly.io / any VPS (recommended for keeping data):**
-
-1. Push the `ai-personal-tutor` folder to a GitHub repository.
-2. Create a Node web service with build command `npm install && npm run build` and start command `npm start`.
-3. Set `GEMINI_API_KEY` in the service's environment variables.
-4. Attach a persistent disk/volume and set `DATABASE_DIR` to its mount path (e.g. `/data`) so uploads and progress survive restarts.
-
-**Vercel (fine for a demo):**
-
-1. Import the repository in Vercel and set the root directory to `ai-personal-tutor`.
-2. Add `GEMINI_API_KEY` under *Settings → Environment Variables*.
-3. Deploy.
-
-On Vercel the database lives in `/tmp`, which is temporary and per-instance. Demo Mode works fine, because it rebuilds itself on entry. Personal uploads and progress may reset, though, so use a host with a persistent disk for real use.
-
-## Project structure
-
+```text
+Build: npm install && npm run build
+Start: npm start
 ```
+
+<samp>Set <code>GEMINI_API_KEY</code> in the deployment environment and configure <code>DATABASE_DIR</code> to point to persistent storage.</samp>
+
+<samp><b>Vercel:</b> suitable for a demo, but the current SQLite database uses temporary storage there, so personal uploads and progress may reset.</samp>
+
+---
+
+<div align="center"><samp><b>Project Structure</b></samp></div>
+
+```text
 app/
-  page.tsx               Landing page
-  actions.ts             Server actions (enter demo, start session, delete material…)
-  (app)/                 Signed-in area: dashboard, tutor, materials, quiz, progress
-  api/chat/              Streams tutor replies from Gemini
-  api/materials/         PDF/TXT upload and text extraction
-  api/quiz/              Quiz generation and answer checking
-components/              UI components (chat, quiz runner, upload form, …)
+├── page.tsx                 Landing page
+├── actions.ts               Server actions
+├── (app)/                   Dashboard, tutor, materials, quiz, progress
+└── api/
+    ├── chat/                Tutor responses
+    ├── materials/           PDF/TXT upload and extraction
+    └── quiz/                Quiz generation and answer checking
+components/                  UI components
 lib/
-  gemini.ts              Gemini client + user-friendly error mapping (server-only)
-  prompts.ts             Tutor and quiz prompts
-  db.ts, data.ts         SQLite schema and queries
-  progress.ts            Progress statistics
-  demo.ts                Demo seeding and offline fallback replies
-data/                    Demo study notes, question bank, sample replies
-types/                   Shared TypeScript types
+├── gemini.ts                Gemini client and error mapping
+├── prompts.ts               Tutor and quiz prompts
+├── db.ts, data.ts           SQLite schema and queries
+├── progress.ts              Progress statistics
+└── demo.ts                  Demo seeding and fallback replies
+data/                        Demo notes, question bank, sample replies
+types/                       Shared TypeScript types
 ```
 
-## Notes
+---
 
-- Scanned PDFs (images of pages) contain no text layer and can't be read yet.
-- Very long documents are trimmed to roughly the first 40 pages when sent to the tutor. The study panel says when this happens.
-- Tutor answers can be wrong; check important facts against your course material.
+<div align="center"><samp><b>Notes</b></samp></div>
+
+- <samp>Scanned PDFs without a text layer cannot currently be read.</samp>
+- <samp>Very long documents are trimmed to roughly the first 40 pages when sent to the tutor.</samp>
+- <samp>Tutor responses can be incorrect; important facts should be checked against course material.</samp>
+
+---
+
+<div align="center"><samp><b>Author</b></samp></div>
+
+<div align="center">
+<samp><strong>Yoson</strong></samp>
+
+<samp>Computer Science student interested in AI/ML, robotics, embedded systems, and automation.</samp>
+</div>
