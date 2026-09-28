@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #f7f6f3;
+  --color-surface: #ffffff;
+  --color-subtle: #f1efeb;
+  --color-line: #e5e2dc;
+  --color-line-strong: #d4d0c8;
+
+  --color-ink: #1f2328;
+  --color-ink-soft: #454a52;
+  --color-muted: #6c7079;
+
+  --color-navy: #1f2d4f;
+  --color-navy-hover: #16213b;
+  --color-navy-soft: #eaedf4;
+
+  --color-accent: #a86412;
+  --color-accent-soft: #f6ecdc;
+
+  --color-good: #2c6a4a;
+  --color-good-soft: #e6f0ea;
+  --color-bad: #a3392e;
+  --color-bad-soft: #f7e6e3;
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-heading), ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+/* Tutor replies and study material rendered from Markdown */
+.prose-tutor {
+  line-height: 1.65;
+  color: var(--color-ink);
+}
+.prose-tutor > * + * {
+  margin-top: 0.75em;
+}
+.prose-tutor strong {
+  font-weight: 600;
+}
+.prose-tutor ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-tutor ol {
+  list-style: decimal;
+  padding-left: 1.4rem;
+}
+.prose-tutor li + li {
+  margin-top: 0.25em;
+}
+.prose-tutor h1,
+.prose-tutor h2,
+.prose-tutor h3 {
+  font-weight: 600;
+  margin-top: 1.1em;
+}
+.prose-tutor code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-subtle);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  padding: 0.05em 0.3em;
+}
+.prose-tutor pre {
+  background: #22262d;
+  color: #e8e6e1;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.prose-tutor pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+.prose-tutor blockquote {
+  border-left: 3px solid var(--color-line-strong);
+  padding-left: 0.9rem;
+  color: var(--color-ink-soft);
+}
+.prose-tutor table {
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.prose-tutor th,
+.prose-tutor td {
+  border: 1px solid var(--color-line);
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.prose-tutor a {
+  color: var(--color-navy);
+  text-decoration: underline;
+}
+
+@keyframes pulse-dot {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+.typing-dot {
+  animation: pulse-dot 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
