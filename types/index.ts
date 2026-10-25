@@ -1,4 +1,5 @@
-export type Workspace = "demo" | "user";
+/** Demo data is shared and public; personal workspace keys are scoped to one browser cookie. */
+export type Workspace = "demo" | `user:${string}`;
 
 /** Where tutor content came from: live Gemini, the demo's prepared fallback, or seeded demo history. */
 export type ContentSource = "gemini" | "prepared" | "seed";
