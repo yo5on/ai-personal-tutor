@@ -26,6 +26,34 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Report dependency advisories
+        run: |
+          npm audit --json > "$RUNNER_TEMP/npm-audit.json" || true
+          node - "$RUNNER_TEMP/npm-audit.json" <<'NODE'
+          const fs = require("node:fs");
+          let audit;
+          try {
+            audit = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+          } catch {
+            console.log("Dependency audit output was unavailable; see npm audit manually.");
+            process.exit(0);
+          }
+          const entries = Object.entries(audit.vulnerabilities || {});
+          if (!entries.length) {
+            console.log("No dependency vulnerabilities reported.");
+          } else {
+            for (const [name, info] of entries) {
+              const advisories = (info.via || [])
+                .filter((item) => typeof item === "object")
+                .map((item) => item.title + " (" + item.severity + ")");
+              console.log(
+                info.severity.toUpperCase() + ": " + name + " — " +
+                (advisories.join("; ") || "transitive advisory") +
+                "; fixAvailable=" + JSON.stringify(info.fixAvailable)
+              );
+            }
+          }
+          NODE
       - name: Typecheck
         run: npm run typecheck
       - name: Lint
