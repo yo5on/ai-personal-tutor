@@ -10,6 +10,7 @@ import {
   createQuiz,
   createSession,
   recordAnswer,
+  getSetting,
   setSetting,
 } from "@/lib/data";
 import { getDb, transaction } from "@/lib/db";
