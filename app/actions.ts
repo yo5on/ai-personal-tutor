@@ -6,13 +6,13 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createSession, deleteMaterial, getMaterial, setSetting } from "@/lib/data";
-import { resetDemoWorkspace } from "@/lib/demo";
+import { ensureDemoWorkspace, resetDemoWorkspace } from "@/lib/demo";
 import { getWorkspace, isValidWorkspaceId, MODE_COOKIE, USER_WORKSPACE_COOKIE } from "@/lib/workspace";
 
 const COOKIE_OPTIONS = { httpOnly: true, sameSite: "lax" as const, secure: process.env.NODE_ENV === "production", path: "/", maxAge: 60 * 60 * 24 * 180 };
 
 export async function enterDemo() {
-  resetDemoWorkspace();
+  ensureDemoWorkspace();
   (await cookies()).set(MODE_COOKIE, "demo", COOKIE_OPTIONS);
   redirect("/dashboard");
 }
