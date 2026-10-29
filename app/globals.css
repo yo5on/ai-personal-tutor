@@ -118,3 +118,44 @@ body {
 }
 .typing-dot:nth-child(2) { animation-delay: 0.15s; }
 .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+
+/* Product UI refinement: consistent, calm interaction feedback across study, quiz and tutor screens. */
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+}
+::selection {
+  color: var(--color-ink);
+  background: #ead9bd;
+}
+:where(a, button, input, textarea, select, [role="button"]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+:where(input, textarea, select) {
+  accent-color: var(--color-accent);
+}
+:where(button, a, input, textarea, select) {
+  -webkit-tap-highlight-color: rgba(168, 100, 18, 0.12);
+}
+@media (hover: hover) {
+  :where(button, [role="button"]) {
+    transition: box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
