@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createSession, deleteMaterial, getMaterial, setSetting } from "@/lib/data";
 import { resetDemoWorkspace } from "@/lib/demo";
-import { getWorkspace, MODE_COOKIE } from "@/lib/workspace";
+import { getWorkspace, isValidWorkspaceId, MODE_COOKIE, USER_WORKSPACE_COOKIE } from "@/lib/workspace";
 
-const COOKIE_OPTIONS = { httpOnly: true, sameSite: "lax" as const, path: "/", maxAge: 60 * 60 * 24 * 180 };
+const COOKIE_OPTIONS = { httpOnly: true, sameSite: "lax" as const, secure: process.env.NODE_ENV === "production", path: "/", maxAge: 60 * 60 * 24 * 180 };
 
 export async function enterDemo() {
   resetDemoWorkspace();
@@ -16,7 +16,14 @@ export async function enterDemo() {
 }
 
 export async function startLearning() {
-  (await cookies()).set(MODE_COOKIE, "user", COOKIE_OPTIONS);
+  const store = await cookies();
+  const existingId = store.get(USER_WORKSPACE_COOKIE)?.value;
+  const workspaceId = isValidWorkspaceId(existingId) ? existingId : randomUUID();
+
+  // The mode cookie only selects demo/personal mode. The separate random workspace cookie
+  // isolates this browser's study records from every other visitor on the public deployment.
+  store.set(USER_WORKSPACE_COOKIE, workspaceId, COOKIE_OPTIONS);
+  store.set(MODE_COOKIE, "user", COOKIE_OPTIONS);
   redirect("/dashboard");
 }
 
