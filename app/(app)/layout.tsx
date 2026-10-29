@@ -29,7 +29,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           ) : (
             <>
               <p className="font-medium text-ink-soft">Your workspace</p>
-              <p className="mt-0.5">Stored on this server.</p>
+              <p className="mt-0.5">Separated by this browser&apos;s private cookie.</p>
             </>
           )}
         </div>
