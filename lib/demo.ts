@@ -96,7 +96,15 @@ const SEED_QUIZZES: { topic: string; daysAgo: number; wrong: number[] }[] = [
   { topic: "Recursion", daysAgo: 1, wrong: [2, 3, 4] },
 ];
 
-/** Rebuilds the demo workspace from scratch. Never touches the "user" workspace. */
+/**
+ * Creates the shared sample workspace only when it has not been seeded yet.
+ * Entering Demo Mode must not erase another visitor's in-progress sample session.
+ */
+export function ensureDemoWorkspace() {
+  if (getSetting("demo", "name") !== DEMO_STUDENT_NAME) resetDemoWorkspace();
+}
+
+/** Rebuilds the demo workspace from scratch. Never touches personal workspaces. */
 export function resetDemoWorkspace() {
   transaction(() => {
     clearWorkspace("demo");
