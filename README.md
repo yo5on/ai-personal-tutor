@@ -116,6 +116,8 @@ Start: npm start
 
 <samp>Set <code>GEMINI_API_KEY</code> in the deployment environment and configure <code>DATABASE_DIR</code> to point to persistent storage.</samp>
 
+<samp><b>Personal workspace isolation:</b> each browser gets a random, HttpOnly workspace cookie. This separates casual visitors' study data, but it is not account authentication and does not protect data from someone who gains access to that browser or its cookies. Treat this as a student-project prototype; do not upload sensitive or confidential documents to a public deployment.</samp>
+
 <samp><b>Live Demo:</b> <code>https://ai-personal-tutor-cjjn.onrender.com</code></samp>
 
 <samp><b>Vercel:</b> suitable for a demo, but the current SQLite database uses temporary storage there, so personal uploads and progress may reset.</samp>
@@ -152,6 +154,8 @@ public/                      Static assets
 
 - <samp>Scanned PDFs without a text layer cannot currently be read.</samp>
 - <samp>Very long documents are trimmed to roughly the first 40 pages when sent to the tutor.</samp>
+- <samp>Personal workspaces are browser-cookie based; there is no account registration, password recovery or identity verification.</samp>
+- <samp>On serverless deployments that use temporary storage, uploaded materials, chats and progress can be lost when the instance restarts.</samp>
 - <samp>Tutor responses can be incorrect; important facts should be checked against course material.</samp>
 
 ---
