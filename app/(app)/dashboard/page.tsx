@@ -7,7 +7,7 @@ import { ButtonLink, Card, CardHeader, EmptyState, ProgressBar, Stat, buttonStyl
 import { getSetting, listSessions } from "@/lib/data";
 import { timeAgo } from "@/lib/format";
 import { getProgress } from "@/lib/progress";
-import { getWorkspace } from "@/lib/workspace";
+import { getWorkspace, isPersonalWorkspace } from "@/lib/workspace";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -24,7 +24,7 @@ export default async function DashboardPage() {
     <div>
       <div className="mb-7">
         <Greeting name={name} />
-        {!name && ws === "user" ? (
+        {!name && isPersonalWorkspace(ws) ? (
           <form action={saveName} className="mt-2 flex max-w-sm gap-2">
             <label htmlFor="name" className="sr-only">
               Your name
